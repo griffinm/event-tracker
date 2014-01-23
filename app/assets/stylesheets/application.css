@@ -10,3 +10,9 @@
  *
  *= require bootstrap.min.css
  */
+
+.events-container {padding-left: 5px;}
+.events-container .event-item {padding-left: 0px; padding-top: 10px; padding-bottom: 10px; font-size: 18px;}
+.events-container .event-item:hover {background: #f8f8f8;}
+.events-container .event-item a {display: block;}
+.events-container .event-item a:hover {text-decoration: none;}
