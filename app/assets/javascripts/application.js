@@ -10,5 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require ../../../vendor/assets/components/jquery/jquery.min.js
 //= require ../../../vendor/assets/components/requirejs/require.js
 //= require require-config.js
+//= require bootstrap.min.js
