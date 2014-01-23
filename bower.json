@@ -1,0 +1,11 @@
+{
+  "name": "event-tracker",
+  "version": "0.1",
+  "dependencies": {
+    "jquery" : "1.10",
+    "requirejs" : "2.1.10",
+    "requirejs-text" : "2.0.10",
+    "underscore" : "1.5.2",
+    "backbone" : "1.1"
+  }
+}
