@@ -33,7 +33,7 @@ define(
         var html = this.template({events: this.collection.models});
         this.$el.html(html);
 
-        return this;
+        return this.$el;
       }
 
     });

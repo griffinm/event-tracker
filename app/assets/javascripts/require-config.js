@@ -3,7 +3,8 @@ require.config({
   paths: {
     text:"requirejs-text/text",
     underscore: 'underscore/underscore-min',
-    backbone: 'backbone/backbone-min'
+    backbone: 'backbone/backbone-min',
+    moment: 'moment/min/moment.min'
   },
   shim: {
     backbone: {
@@ -12,6 +13,9 @@ require.config({
     },
     underscore: {
       exports: '_'
+    },
+    moment: {
+      exports: 'moment'
     }
   }
 });

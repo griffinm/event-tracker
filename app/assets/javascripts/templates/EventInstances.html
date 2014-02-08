@@ -1,0 +1,19 @@
+<div class="event-instances-container">
+  <ol class="breadcrumb">
+    <li><a href="#events">Events</a></li>
+    <li class="active">Instances</li>
+  </ol>
+
+  <button class="btn btn-primary btn-lg btn-block create-instance">Log New</button>
+
+  <ul class='event-instances-list bordered-list'>
+  <% _.each(eventInstances, function(item){ 
+     %>
+    <li class='event-instance-item'>
+      <strong><%= item.formattedDate() %></strong>
+      at <%= item.formattedTime() %>
+    </li>
+  <% }) %>
+  </ul>
+
+</div>

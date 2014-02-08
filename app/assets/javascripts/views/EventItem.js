@@ -10,7 +10,7 @@ define(
 
     var exports = Backbone.View.extend({
       template: _.template(eventItemTemplate),
-      tagName: 'ul',
+      tagName: 'li',
       className: 'event-item',
 
       initialize: function(){
