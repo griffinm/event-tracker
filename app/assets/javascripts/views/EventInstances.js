@@ -35,9 +35,13 @@ define(
       },
 
       createInstance: function(){
+        this.$el.find('.createInstance').prop('disabled', 'disabled');
+        this.$el.find('.createInstance').html('Creating...');
         this.collection.create({
           event_id: this.collection.event_id}
         );
+        this.$el.find('.createInstance').html('Log New');
+        this.$el.find('.createInstance').prop('disabled', null);
       }
 
     });
