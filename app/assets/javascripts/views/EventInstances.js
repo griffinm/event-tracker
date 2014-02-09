@@ -30,18 +30,21 @@ define(
 
         var html = this.template({eventInstances: sortedCollection});
         this.$el.html(html);
+        // $('#content-container').html(this.el.html);
 
         return this.$el;
       },
 
       createInstance: function(){
-        this.$el.find('.createInstance').prop('disabled', 'disabled');
-        this.$el.find('.createInstance').html('Creating...');
         this.collection.create({
           event_id: this.collection.event_id}
         );
-        this.$el.find('.createInstance').html('Log New');
-        this.$el.find('.createInstance').prop('disabled', null);
+      },
+
+      dispose: function(){
+        this.$el.empty();
+        this.undelegateEvents();
+        return this;
       }
 
     });

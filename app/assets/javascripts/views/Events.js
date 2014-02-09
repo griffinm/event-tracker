@@ -34,6 +34,12 @@ define(
         this.$el.html(html);
 
         return this.$el;
+      },
+
+      dispose: function(){
+        this.$el.empty();
+        this.undelegateEvents();
+        return this;
       }
 
     });

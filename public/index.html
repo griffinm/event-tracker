@@ -42,7 +42,7 @@
     require(['backbone', 'routers/ApplicationRouter'], function(Backbone, ApplicationRouter){
       var appRouter = new ApplicationRouter();
       Backbone.history.start();
-      window.location.hash = 'events'
+      window.location.hash = window.location.hash || 'events';
     });
   </script>
 </html>
