@@ -16,6 +16,7 @@ define(
       template: _.template(template),
       collectionFetched: false,
       modelFetched: false,
+      addingNew: false,
 
       events: {
         'click .create-instance' : 'createInstance'
@@ -41,20 +42,36 @@ define(
       },
 
       render: function(){
-        var sortedCollection = this.collection.sortBy(function(item){
-          item.get('created_at');
-        }).reverse();
+        var sortedCollection = this.sortedCollection();
+
+        if(this.addingNew){
+          sortedCollection = sortedCollection.map(function(item){
+            item.customCss = '';
+            return item;
+          });
+          sortedCollection[0].isNewItem = true;
+          sortedCollection[0].customCss = 'alert alert-success fade in';
+        }
 
         var html = this.template({
           eventInstances: sortedCollection,
           event: this.model
         });
         this.$el.html(html);
+        this.addingNew = false;
 
         return this.$el;
       },
 
+      sortedCollection: function(){
+        return this.collection.sortBy(function(item){
+          item.isNewItem = false;
+          item.get('created_at');
+        }).reverse();
+      },
+
       createInstance: function(){
+        this.addingNew = true;
         this.collection.create({
           event_id: this.collection.event_id}
         );

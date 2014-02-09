@@ -9,7 +9,10 @@
   <ul class='event-instances-list bordered-list'>
   <% _.each(eventInstances, function(item){ 
      %>
-    <li class='event-instance-item'>
+    <li class='event-instance-item <%= item.customCss %>'>
+      <% if (item.isNewItem){ %>
+        <strong>Just Added - </strong>
+      <% } %>
       <strong><%= item.formattedDate() %></strong>
       at <%= item.formattedTime() %>
     </li>
