@@ -40,18 +40,25 @@ define(
         var that = this;
         require([
           'collections/EventInstances',
-          'views/EventInstances'
+          'views/EventInstances',
+          'models/Event'
         ], function(){
           var EventInstancesCollection = require('collections/EventInstances'),
             collection = new EventInstancesCollection(),
-            EventInstancesView = require('views/EventInstances');
-         
+            EventInstancesView = require('views/EventInstances'),
+            EventModel = require('models/Event'),
+            eventModel = new EventModel({id: eventId});
+
           if(that.activeViews.eventInstances){
              that.activeViews.eventInstances.dispose();
           }
-          that.activeViews.eventInstances = new EventInstancesView({collection: collection});
+          that.activeViews.eventInstances = new EventInstancesView({
+            collection: collection,
+            model: eventModel
+          });
 
           collection.event_id = eventId;
+          eventModel.fetch();
           collection.fetch();
         });
       },

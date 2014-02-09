@@ -14,13 +14,30 @@ define(
     var exports = Backbone.View.extend({
       el: $('#content-container'),
       template: _.template(template),
+      collectionFetched: false,
+      modelFetched: false,
 
       events: {
         'click .create-instance' : 'createInstance'
       },
 
       initialize: function(){
-        this.listenTo(this.collection, 'sync', this.render);
+        this.listenTo(this.collection, 'sync', this.completeCollectionFetch);
+        this.listenTo(this.model, 'sync', this.completeModelFetch);
+      },
+
+      completeCollectionFetch: function(){
+        this.collectionFetched = true;
+        if(this.collectionFetched && this.modelFetched){
+          this.render();
+        }
+      },
+
+      completeModelFetch: function(){
+        this.modelFetched = true;
+        if(this.collectionFetched && this.modelFetched){
+          this.render();
+        }
       },
 
       render: function(){
@@ -28,9 +45,11 @@ define(
           item.get('created_at');
         }).reverse();
 
-        var html = this.template({eventInstances: sortedCollection});
+        var html = this.template({
+          eventInstances: sortedCollection,
+          event: this.model
+        });
         this.$el.html(html);
-        // $('#content-container').html(this.el.html);
 
         return this.$el;
       },
