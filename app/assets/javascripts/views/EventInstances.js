@@ -47,6 +47,7 @@ define(
         if(this.addingNew){
           sortedCollection = sortedCollection.map(function(item){
             item.customCss = '';
+            item.isNewItem = false;
             return item;
           });
           sortedCollection[0].isNewItem = true;
@@ -65,8 +66,7 @@ define(
 
       sortedCollection: function(){
         return this.collection.sortBy(function(item){
-          item.isNewItem = false;
-          item.get('created_at');
+          return item.get('created_at');
         }).reverse();
       },
 
