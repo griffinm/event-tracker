@@ -56,8 +56,10 @@ define(
 
         var html = this.template({
           eventInstances: sortedCollection,
-          event: this.model
+          event: this.model,
+          total: sortedCollection.length
         });
+
         this.$el.html(html);
         this.addingNew = false;
 
