@@ -32,8 +32,7 @@ define(
       },
 
       changeFilter: function(e){
-        var filter = this.$el.find('input[name="filter-option"]:radio:checked').val(),
-          startDate = '',
+        var startDate = '',
           endDate = '',
           item = $(e.target);
         
