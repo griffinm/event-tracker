@@ -6,6 +6,20 @@
 
   <button class="btn btn-primary btn-lg btn-block create-instance">Log New: <%= event.get('name') %></button>
 
+  <div class="row instance-filter">
+    <div class="btn-group col-xs-12" data-toggle="buttons">
+      <label class="btn btn-primary filter last30">
+        <input type="radio" value="last30" name="filter-option"> Display Last 30 Days
+      </label>
+      <label class="btn btn-primary filter month">
+        <input type="radio" value="month" name="filter-option"> Display Current Month
+      </label>
+      <label class="btn btn-primary filter all">
+        <input type="radio" value="all" name="filter-option"> Display All
+      </label>
+    </div>
+  </div>
+
   <h4>Total: <strong> <%= total %></strong></h4>
 
   <ul class='event-instances-list bordered-list'>

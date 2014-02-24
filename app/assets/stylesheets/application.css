@@ -25,3 +25,5 @@
 .events-container li:first-child {border: 1px solid #e7e7e7; border-top-left-radius: 15px;border-top-right-radius: 15px;}
 .events-container li:last-child {border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;}
 .events-container .event-item a:hover {text-decoration: none;}
+
+.instance-filter {padding-top: 15px;}

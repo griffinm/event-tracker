@@ -41,13 +41,17 @@ define(
         require([
           'collections/EventInstances',
           'views/EventInstances',
-          'models/Event'
+          'models/Event',
+          'moment'
         ], function(){
           var EventInstancesCollection = require('collections/EventInstances'),
             collection = new EventInstancesCollection(),
             EventInstancesView = require('views/EventInstances'),
             EventModel = require('models/Event'),
-            eventModel = new EventModel({id: eventId});
+            Moment = require('moment'),
+            eventModel = new EventModel({id: eventId}),
+            startDate = Moment().startOf('month').format(),
+            endDate = Moment().format();
 
           if(that.activeViews.eventInstances){
              that.activeViews.eventInstances.dispose();
@@ -59,7 +63,12 @@ define(
 
           collection.event_id = eventId;
           eventModel.fetch();
-          collection.fetch();
+          collection.fetch({
+            data: {
+              start_date: startDate,
+              end_date: endDate
+            }
+          });
         });
       },
 

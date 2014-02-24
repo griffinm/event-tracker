@@ -1,9 +1,17 @@
 class EventInstancesController < ApplicationController
 
   def index
-    event = Event.find(params[:event_id])
+    start_date ||= Date.parse(params[:start_date])
+    end_date ||= Date.parse(params[:end_date])
+    event_id = params[:event_id]
 
-    render json: event.event_instances
+    if start_date.nil? || end_date.nil?
+      event_instances = EventInstance.where(event_id: event_id)
+    else
+      event_instances = EventInstance.where(event_id: event_id, created_at: start_date..end_date)
+    end
+
+    render json: event_instances
   end
 
   def create

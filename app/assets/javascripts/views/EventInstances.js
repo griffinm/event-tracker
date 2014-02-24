@@ -3,13 +3,16 @@ define(
   [
     'backbone',
     'text!templates/EventInstances.html',
-    'models/EventInstance'
+    'models/EventInstance',
+    'moment'
   ],
   function(Backbone){
     'use strict';
 
     var template = require('text!templates/EventInstances.html'),
-      EventInstanceModel = require('models/EventInstance');
+      EventInstanceModel = require('models/EventInstance'),
+      Moment = require('moment');
+
 
     var exports = Backbone.View.extend({
       el: $('#content-container'),
@@ -19,12 +22,35 @@ define(
       addingNew: false,
 
       events: {
-        'click .create-instance' : 'createInstance'
+        'click .create-instance' : 'createInstance',
+        'click label.filter' : 'changeFilter'
       },
 
       initialize: function(){
         this.listenTo(this.collection, 'sync', this.completeCollectionFetch);
         this.listenTo(this.model, 'sync', this.completeModelFetch);
+      },
+
+      changeFilter: function(e){
+        var filter = this.$el.find('input[name="filter-option"]:radio:checked').val(),
+          startDate = '',
+          endDate = '',
+          item = $(e.target);
+        
+        if(item.hasClass('month')){
+          endDate = Moment().format();
+          startDate = Moment().startOf('month').format();
+        }
+        if(item.hasClass('all')){
+          endDate = '';
+          startDate = '';       
+        }
+        if(item.hasClass('last30')){
+          endDate = Moment().format();
+          startDate = Moment().subtract(30, 'days').format();
+        }
+
+        this.collection.fetch({data: {start_date: startDate, end_date: endDate}});
       },
 
       completeCollectionFetch: function(){
