@@ -20,6 +20,7 @@ define(
       collectionFetched: false,
       modelFetched: false,
       addingNew: false,
+      activeFilter: '',
 
       events: {
         'click .create-instance' : 'createInstance',
@@ -27,6 +28,8 @@ define(
       },
 
       initialize: function(){
+        this.activeFilter = 'label.all';
+
         this.listenTo(this.collection, 'sync', this.completeCollectionFetch);
         this.listenTo(this.model, 'sync', this.completeModelFetch);
       },
@@ -37,16 +40,24 @@ define(
           item = $(e.target);
         
         if(item.hasClass('month')){
+          this.activeFilter = 'label.month';
           endDate = Moment().format();
           startDate = Moment().startOf('month').format();
         }
         if(item.hasClass('all')){
+          this.activeFilter = 'label.all';
           endDate = '';
           startDate = '';       
         }
         if(item.hasClass('last30')){
+          this.activeFilter = 'label.last30';
           endDate = Moment().format();
           startDate = Moment().subtract(30, 'days').format();
+        }
+        if(item.hasClass('last7')){
+          this.activeFilter = 'label.last7';
+          endDate = Moment().format();
+          startDate = Moment().subtract(7, 'days').format();
         }
 
         this.collection.fetch({data: {start_date: startDate, end_date: endDate}});
@@ -87,6 +98,8 @@ define(
 
         this.$el.html(html);
         this.addingNew = false;
+
+        this.$el.find(this.activeFilter).addClass('active');
 
         return this.$el;
       },
