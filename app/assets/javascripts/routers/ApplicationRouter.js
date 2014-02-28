@@ -60,8 +60,11 @@ define(
             collection: collection,
             model: eventModel
           });
-
+          that.activeViews.eventInstances.startDate = startDate;
+          that.activeViews.eventInstances.endDate = endDate;
+          
           collection.event_id = eventId;
+
           eventModel.fetch();
           collection.fetch({
             data: {

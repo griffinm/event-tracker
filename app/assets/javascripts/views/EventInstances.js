@@ -21,6 +21,8 @@ define(
       modelFetched: false,
       addingNew: false,
       activeFilter: '',
+      startDate: '',
+      endDate: '',
 
       events: {
         'click .create-instance' : 'createInstance',
@@ -35,32 +37,32 @@ define(
       },
 
       changeFilter: function(e){
-        var startDate = '',
-          endDate = '',
-          item = $(e.target);
+        var item = $(e.target);
         
         if(item.hasClass('month')){
           this.activeFilter = 'label.month';
-          endDate = Moment().format();
-          startDate = Moment().startOf('month').format();
+          this.displayedDays = undefined;
+          this.endDate = Moment().format();
+          this.startDate = Moment().startOf('month').format();
         }
         if(item.hasClass('all')){
           this.activeFilter = 'label.all';
-          endDate = '';
-          startDate = '';       
+          this.displayedDays = undefined;
+          this.endDate = '';
+          this.startDate = '';       
         }
         if(item.hasClass('last30')){
           this.activeFilter = 'label.last30';
-          endDate = Moment().format();
-          startDate = Moment().subtract(30, 'days').format();
+          this.endDate = Moment().format();
+          this.startDate = Moment().subtract(30, 'days').format();
         }
         if(item.hasClass('last7')){
           this.activeFilter = 'label.last7';
-          endDate = Moment().format();
-          startDate = Moment().subtract(7, 'days').format();
+          this.endDate = Moment().format();
+          this.startDate = Moment().subtract(7, 'days').format();
         }
 
-        this.collection.fetch({data: {start_date: startDate, end_date: endDate}});
+        this.collection.fetch({data: {start_date: this.startDate, end_date: this.endDate}});
       },
 
       completeCollectionFetch: function(){
@@ -78,7 +80,9 @@ define(
       },
 
       render: function(){
-        var sortedCollection = this.sortedCollection();
+        var sortedCollection = this.sortedCollection(),
+          displayedDays = Moment(this.endDate).dayOfYear() - Moment(this.startDate).dayOfYear(),
+          totalEvents = sortedCollection.length;
 
         if(this.addingNew){
           sortedCollection = sortedCollection.map(function(item){
@@ -93,7 +97,9 @@ define(
         var html = this.template({
           eventInstances: sortedCollection,
           event: this.model,
-          total: sortedCollection.length
+          total: totalEvents,
+          displayedDays: displayedDays,
+          percentage: ((totalEvents / displayedDays) * 100).toFixed(1)
         });
 
         this.$el.html(html);

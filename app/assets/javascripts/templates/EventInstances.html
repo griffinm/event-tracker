@@ -23,7 +23,13 @@
     </div>
   </div>
 
-  <h4>Total: <strong> <%= total %></strong></h4>
+  <div class="summary">
+    <p>
+      Displaying <strong> <%= displayedDays %></strong> days and 
+      <strong><%= total %></strong> events
+      (<strong><%= percentage %>%</strong>)
+    </p>
+  </div>
 
   <ul class='event-instances-list bordered-list'>
   <% _.each(eventInstances, function(item){ 

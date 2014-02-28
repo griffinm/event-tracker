@@ -26,4 +26,6 @@
 .events-container li:last-child {border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;}
 .events-container .event-item a:hover {text-decoration: none;}
 
+.event-instances-container .summary {padding-top: 15px;}
+
 .instance-filter {padding-top: 15px;}
