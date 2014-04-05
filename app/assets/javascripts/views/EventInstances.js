@@ -43,7 +43,7 @@ define(
           this.activeFilter = 'label.month';
           this.displayedDays = undefined;
           this.endDate = Moment().format();
-          this.startDate = Moment().startOf('month').format();
+          this.startDate = Moment().startOf('month').subtract(1, 'days').format();
         }
         if(item.hasClass('all')){
           this.activeFilter = 'label.all';
@@ -83,7 +83,7 @@ define(
         var sortedCollection = this.sortedCollection(),
           displayedDays = Moment(this.endDate).dayOfYear() - Moment(this.startDate).dayOfYear(),
           totalEvents = sortedCollection.length;
-
+          
         if(this.addingNew){
           sortedCollection = sortedCollection.map(function(item){
             item.customCss = '';
